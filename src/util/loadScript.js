@@ -1,30 +1,47 @@
 const head = document.head || document.getElementsByTagName("head")[0]
 
-export default function loadScript(url, callback) {
-  let node = document.createElement("script")
+export default function(url, options={}) {
+  options.timeout = options.timeout || 10 * 1000
+  if (options.hour) {
+    url += url.indexOf('?') > 0 ? '&' : '?'
+    url += `t=${Math.floor(new Date() / 3600000)}`
+  }
 
-  node.charset = 'utf-8'
-  node.async = true
-  node.setAttribute('crossorigin', 'anonymous')
-  // node.crossOrigin = 'anonymous'
+  return new Promise((resolve, reject) => {
+    let node = document.createElement("script")
 
-  if ('onload' in node) {
-    node.onload = onload
-  } else {
-    node.onreadystatechange = function () {
-      if (/loaded|complete/.test(node.readyState)) {
-        onload()
+    node.charset = 'utf-8'
+    node.async = true
+    node.setAttribute('crossorigin', 'anonymous')
+    // node.crossOrigin = 'anonymous'
+
+    if ('onload' in node) {
+      node.onload = onload
+    } else {
+      node.onreadystatechange = function() {
+        if (/loaded|complete/.test(node.readyState)) {
+          onload()
+        }
       }
     }
-  }
 
-  function onload() {
-    node.onreadystatechange = node.onload = null
-    head.removeChild(node)
-    node = null
-    callback()
-  }
+    if ('onerror' in node) {
+      node.onerror = reject
+    }
 
-  node.src = url
-  head.appendChild(node)
+    setTimeout(function() {
+      reject(new Error('timeout'))
+    }, options.timeout)
+
+    function onload() {
+      node.onreadystatechange = node.onload = null
+      head.removeChild(node)
+      node = null
+
+      resolve()
+    }
+
+    node.src = url
+    head.appendChild(node)
+  })
 }

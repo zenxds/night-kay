@@ -2,8 +2,12 @@ import React, { Fragment, Component } from 'react'
 import { Route } from 'react-router-dom'
 
 import BundleLoader from './BundleLoader'
-import { join } from './util'
+import { join, memoizePromise } from './util'
 import loadScript from './util/loadScript'
+
+const loadApp = memoizePromise(url => {
+  return loadScript(url)
+})
 
 /**
  * @class AppLoader
@@ -31,7 +35,7 @@ export default class AppLoader extends Component {
     }
 
     // APP在入口JS里执行路由注册的逻辑
-    loadScript(entry, () => {
+    loadApp(entry).then(() => {
       this.setState({
         routes: application.routes || []
       })
