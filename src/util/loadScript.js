@@ -1,7 +1,7 @@
 const head = document.head || document.getElementsByTagName("head")[0]
 
 export default function(url, options={}) {
-  options.timeout = options.timeout || 10 * 1000
+  options.timeout = options.timeout || 20 * 1000
   if (options.hour) {
     url += url.indexOf('?') > 0 ? '&' : '?'
     url += `t=${Math.floor(new Date() / 3600000)}`

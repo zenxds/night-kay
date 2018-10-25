@@ -12,26 +12,19 @@
     "@babel/preset-react"
   ],
   "env": {
+    "test": {
+      "presets": [
+        ["@babel/preset-env"],
+        "@babel/preset-react"
+      ]
+    },
     "development": {
       "plugins": [
-        ["@babel/plugin-proposal-decorators", { "legacy": true }],
-        ["@babel/plugin-proposal-class-properties", { "loose" : true }],
-        ["import", {
-          "libraryName": "antd",
-          "libraryDirectory": "es"
-        }],
         "react-hot-loader/babel"
       ]
     },
     "production": {
-      "plugins": [
-        ["@babel/plugin-proposal-decorators", { "legacy": true }],
-        ["@babel/plugin-proposal-class-properties", { "loose" : true }],
-        ["import", {
-          "libraryName": "antd",
-          "libraryDirectory": "es"
-        }]
-      ]
+      "plugins": []
     }
   }
 }

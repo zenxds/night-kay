@@ -3,10 +3,7 @@
     "target": "es2017",
     "experimentalDecorators": true,
     "baseUrl": ".",
-    "paths": {
-      "util/*": ["./src/util/*"],
-      "component/*": ["./src/component/*"]
-    }
+    "paths": {}
   },
   "exclude": [
     "node_modules"

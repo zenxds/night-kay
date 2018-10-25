@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { Component } from 'react'
 
 /**
  * @class BundleLoader
  */
-export default class BundleLoader extends React.Component {
+export default class BundleLoader extends Component {
   constructor(props, context) {
     super(props, context)
 
@@ -19,11 +19,12 @@ export default class BundleLoader extends React.Component {
   load() {
     const { bundle } = this.props
 
-    if (bundle.prototype instanceof React.Component) {
+    if (bundle.prototype instanceof Component) {
       this.setState({
         mod: bundle
       })
     } else {
+      // lazy bundle-loader
       bundle(mod => {
         this.setState({
           mod: mod.default || mod
@@ -33,10 +34,9 @@ export default class BundleLoader extends React.Component {
   }
 
   /**
-   * props: match、history、location 还有一个多余的bundle
+   * match、history、location
    */
   render() {
-    const Component = this.state.mod
-    return Component ? <Component {...this.props} /> : null
+    return this.state.mod ? this.props.render(this.state.mod) : null
   }
 }

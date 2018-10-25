@@ -1,4 +1,4 @@
-import React, { Fragment, Component } from 'react'
+import React, { Fragment } from 'react'
 import { Route } from 'react-router-dom'
 
 import BundleLoader from './BundleLoader'
@@ -11,14 +11,14 @@ const loadApp = memoizePromise(url => {
 
 /**
  * @class AppLoader
- * 加载app入口文件
+ * 加载App入口文件
  */
-export default class AppLoader extends Component {
+export default class AppLoader extends React.Component {
   constructor(props, context) {
     super(props, context)
 
     this.state = {
-      routes: []
+      routes: props.application.routes || []
     }
   }
 
@@ -34,7 +34,7 @@ export default class AppLoader extends Component {
       return
     }
 
-    // APP在入口JS里执行路由注册的逻辑
+    // 加载入口JS，在该JS里执行App路由注册逻辑
     loadApp(entry).then(() => {
       this.setState({
         routes: application.routes || []
@@ -44,7 +44,7 @@ export default class AppLoader extends Component {
 
   render() {
     const { routes } = this.state
-    const { match } = this.props
+    const { match, application } = this.props
 
     if (!routes.length) {
       return null
@@ -57,7 +57,7 @@ export default class AppLoader extends Component {
             const path = join([match.url, item.path])
 
             return <Route key={item.path} exact={!!item.exact} path={path} render={props => {
-              return <BundleLoader {...props} bundle={item.component} />
+              return <BundleLoader bundle={item.component} render={Component => <Component {...props} />} />
             }} />
           })
         }
