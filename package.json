@@ -2,7 +2,7 @@
   "name": "night-kay",
   "version": "0.1.0",
   "description": "night-kay",
-  "main": "build/main.js",
+  "main": "build/index.js",
   "scripts": {
     "start": "BABEL_ENV=development webpack-dev-server -w --open --env=development",
     "build": "BABEL_ENV=production webpack --progress --env=production",
