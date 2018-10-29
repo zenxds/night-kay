@@ -27,6 +27,8 @@ class NightKay {
       return
     }
 
+    application.name = name
+
     this.applicationMap[name] = application
     this.applications.push(application)
   }

@@ -16,6 +16,7 @@ test('application', () => {
   NightKay.registerApplication('test', app)
 
   expect(NightKay.applications.length).toBe(1)
+  expect(NightKay.applications[0].name).toBe('test')
   expect(NightKay.getApplication('test')).toBe(app)
 })
 
