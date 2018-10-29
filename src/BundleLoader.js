@@ -34,6 +34,15 @@ export default class BundleLoader extends Component {
   }
 
   render() {
-    return this.state.mod ? this.props.render(this.state.mod) : null
+    if (!this.state.mod) {
+      return null
+    }
+
+    // for css namespace
+    return (
+      <div className={`night-kay-app night-kay-app-${this.props.application.name}`}>
+        { this.props.render(this.state.mod) }
+      </div>
+    )
   }
 }

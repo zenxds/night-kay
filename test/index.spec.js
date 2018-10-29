@@ -51,7 +51,6 @@ test('AppLoader', () => {
   )
 
   expect(wrapper.children().length).toBe(1)
-  expect(wrapper.html().indexOf('night-kay-app-test')).toBeGreaterThan(-1)
 })
 
 test('BundleLoader', () => {
@@ -62,8 +61,9 @@ test('BundleLoader', () => {
   }
 
   const wrapper = shallow(
-    <BundleLoader bundle={TestComponent} render={Component => <Component />} />
+    <BundleLoader bundle={TestComponent} application={{ name: 'test' }} render={Component => <Component />} />
   )
 
+  expect(wrapper.html().indexOf('night-kay-app-test')).toBeGreaterThan(-1)
   expect(wrapper.html().indexOf('class="test"')).toBeGreaterThan(-1)
 })
