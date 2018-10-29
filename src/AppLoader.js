@@ -54,11 +54,16 @@ export default class AppLoader extends React.Component {
       <Fragment>
         {
           routes.map(item => {
-            const path = join([match.url, item.path])
+            const path = join([match.path, item.path])
 
-            return <Route key={item.path} exact={!!item.exact} path={path} render={props => {
-              return <BundleLoader bundle={item.component} render={Component => <Component {...props} />} />
-            }} />
+            // for app's css namespace
+            return (
+              <div key={item.path} className={`night-kay-app night-kay-app-${application.name}`}>
+                <Route path={path} exact={!!item.exact} render={props => {
+                  return <BundleLoader bundle={item.component} render={Component => <Component {...props} />} />
+                }} />
+              </div>
+            )
           })
         }
       </Fragment>

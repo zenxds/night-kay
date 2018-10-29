@@ -50,6 +50,7 @@ test('AppLoader', () => {
   )
 
   expect(wrapper.children().length).toBe(1)
+  expect(wrapper.html().indexOf('night-kay-app-test')).toBeGreaterThan(-1)
 })
 
 test('BundleLoader', () => {

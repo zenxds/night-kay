@@ -8,20 +8,22 @@ React微前端架构方案
 
 将前端应用由单一的SPA应用转变为多个子应用聚合为一的应用，各个子应用还可以单独开发、测试、部署
 
-应用划分为production和各个子app
+应用划分为product和各个子app
 
-### production
+### product
 
-处理页面公用部分逻辑，进行子应用的注册
+处理页面公用部分逻辑，进行权限管理、子应用入口的注册
 
 ### app
 
-负责自己部分逻辑，注册路由与组件的对应关系
+负责自身业务逻辑逻辑，注册路由与组件的对应关系
 
 ## 使用
 
+product与子app在不同项目中时
+
 ```
-// production
+// product
 import nightKay from 'night-kay'
 
 nightKay.registerApplication('user', {
@@ -44,10 +46,10 @@ nightKay.registerRoutes('user', [
 ])
 ```
 
-or
+product与子app在同一项目时（component也可以使用bundle-loader）
 
 ```
-// production
+// product
 import nightKay from 'night-kay'
 
 nightKay.registerApplication('user', {
@@ -80,15 +82,15 @@ import {
 
 ## 公共依赖
 
-这部分依赖不在本项目中处理，放到production中去
+子app的公共依赖放到product中去处理
 
 ```
 @antv/data-set @antv/g2 antd axios babel-polyfill mobx mobx-react react react-dom react-router-dom
 ```
 
-## webpack
+### webpack
 
-production负责把公共依赖包打包成vendor
+product负责把公共依赖包打包成vendor
 
 ```
 import 'babel-polyfill'
@@ -115,7 +117,7 @@ window.axios = axios
 window.nightKay = nightKay
 ```
 
-production和各app在webpack里配置
+product和各app在webpack里配置
 
 ```
 externals: {
@@ -131,3 +133,9 @@ externals: {
   'night-kay': 'nightKay'
 }
 ```
+
+## css
+
+子app会渲染在有`night-kay-app-${name}`类名的容器下
+
+子app如果选择单独构建，需使用postcss的namespace为所有css加上该类名的namespace

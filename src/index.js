@@ -67,12 +67,19 @@ class NightKay {
     return this.services[name]
   }
 
+  // registerPermission(permission={}) {
+  //   const { apps, paths, noPermission } = permission
+  // }
+
+  /**
+   * render props: match、history、location
+   */
   routes() {
     return (
       <Fragment>
         {
-          this.applications.map((application, name) => {
-            return <Route key={name} path={application.path} render={props => {
+          this.applications.map(application => {
+            return <Route key={application.name} path={application.path} exact={!!application.exact} render={props => {
               return <AppLoader {...props} application={application} />
             }} />
           })

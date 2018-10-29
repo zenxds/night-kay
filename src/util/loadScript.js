@@ -12,8 +12,7 @@ export default function(url, options={}) {
 
     node.charset = 'utf-8'
     node.async = true
-    node.setAttribute('crossorigin', 'anonymous')
-    // node.crossOrigin = 'anonymous'
+    node.crossOrigin = 'anonymous'
 
     if ('onload' in node) {
       node.onload = onload

@@ -33,9 +33,6 @@ export default class BundleLoader extends Component {
     }
   }
 
-  /**
-   * match、history、location
-   */
   render() {
     return this.state.mod ? this.props.render(this.state.mod) : null
   }
