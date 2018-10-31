@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Route } from 'react-router-dom'
 
 import BundleLoader from './BundleLoader'
@@ -51,19 +51,20 @@ export default class AppLoader extends React.Component {
     }
 
     return (
-      <Fragment>
+      // for css namespace
+      <div className={`night-kay-app night-kay-app-${application.name}`}>
         {
           routes.map(item => {
             const path = join([match.path, item.path])
 
             return (
               <Route key={item.path} path={path} exact={!!item.exact} render={props => {
-                return <BundleLoader bundle={item.component} application={application} render={Component => <Component {...props} />} />
+                return <BundleLoader {...props} bundle={item.component} />
               }} />
             )
           })
         }
-      </Fragment>
+      </div>
     )
   }
 }

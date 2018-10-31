@@ -76,6 +76,7 @@ import {
 <Router>
   <Switch>
     { nightKay.routes() }
+    <Route component={NoMatch} />
   </Switch>
 </Router>
 ```
@@ -134,8 +135,16 @@ externals: {
 }
 ```
 
-## css
+## 子app构建
 
 子app会渲染在有`night-kay-app-${name}`类名的容器下
 
-子app如果选择单独构建，需使用postcss的namespace为所有css加上该类名的namespace
+配置postcss的namespace为所有css加上该类名的namespace
+
+配置webpack jsonp名称
+
+```
+output: {
+  jsonpFunction: 'webpackJsonp' + Date.now()
+}
+```

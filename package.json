@@ -1,6 +1,6 @@
 {
   "name": "night-kay",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "night-kay",
   "main": "build/index.js",
   "scripts": {

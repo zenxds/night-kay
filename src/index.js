@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Route } from 'react-router-dom'
 
 import AppLoader from './AppLoader'
@@ -11,15 +11,18 @@ class NightKay {
     // 根据application注册的顺序来决定route匹配的顺序
     this.applications = []
     this.applicationMap = {}
-    this.services = {}
+    this.modules = {}
+    this.permission = null
   }
 
   /**
    *
-   * @param {string} name
-   * @param {object} application
-   * @param {string} application.path
-   * @param {string} application.entry
+   * @param {string}  name
+   * @param {object}  application
+   * @param {string}  application.path
+   * @param {bool}    application.exact
+   * @param {string}  application.entry
+   * @param {array}   application.routes
    */
   registerApplication(name, application) {
     if (this.applicationMap[name]) {
@@ -56,38 +59,38 @@ class NightKay {
     application.routes = routes
   }
 
-  registerService(name, service) {
-    if (this.services[name]) {
-      console.warn(`service ${name} has been registered`)
+  registerModule(name, module) {
+    if (this.modules[name]) {
+      console.warn(`module ${name} has been registered`)
       return
     }
 
-    this.services[name] = service
+    this.modules[name] = module
   }
 
-  getService(name) {
-    return this.services[name]
+  getModule(name) {
+    return this.modules[name]
   }
 
   // registerPermission(permission={}) {
-  //   const { apps, paths, noPermission } = permission
+  //   const { apps, paths, NoPermission } = permission
   // }
 
-  /**
-   * render props: match、history、location
-   */
   routes() {
-    return (
-      <Fragment>
-        {
-          this.applications.map(application => {
-            return <Route key={application.name} path={application.path} exact={!!application.exact} render={props => {
-              return <AppLoader {...props} application={application} />
-            }} />
-          })
-        }
-      </Fragment>
-    )
+    const routes = this.applications.map(application => {
+      return (
+        <Route
+          key={application.name}
+          path={application.path}
+          exact={!!application.exact}
+          render={props => {
+            return <AppLoader {...props} application={application} />
+          }}
+        />
+      )
+    })
+
+    return routes
   }
 }
 

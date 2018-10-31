@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React from 'react'
 
 /**
  * @class BundleLoader
  */
-export default class BundleLoader extends Component {
+export default class BundleLoader extends React.Component {
   constructor(props, context) {
     super(props, context)
 
@@ -19,7 +19,7 @@ export default class BundleLoader extends Component {
   load() {
     const { bundle } = this.props
 
-    if (bundle.prototype instanceof Component) {
+    if (bundle.prototype instanceof React.Component) {
       this.setState({
         mod: bundle
       })
@@ -34,15 +34,13 @@ export default class BundleLoader extends Component {
   }
 
   render() {
-    if (!this.state.mod) {
+    const Component = this.state.mod
+    const { match, location, history } = this.props
+
+    if (!Component) {
       return null
     }
 
-    // for css namespace
-    return (
-      <div className={`night-kay-app night-kay-app-${this.props.application.name}`}>
-        { this.props.render(this.state.mod) }
-      </div>
-    )
+    return <Component match={match} location={location} history={history} />
   }
 }

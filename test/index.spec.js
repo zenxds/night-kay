@@ -9,7 +9,7 @@ import NightKay from '../src'
 import AppLoader from '../src/AppLoader'
 import BundleLoader from '../src/BundleLoader'
 
-test('application', () => {
+test('registerApplication', () => {
   expect(NightKay.applications.length).toBe(0)
 
   const app = {}
@@ -20,14 +20,14 @@ test('application', () => {
   expect(NightKay.getApplication('test')).toBe(app)
 })
 
-test('service', () => {
-  expect(Object.keys(NightKay.services).length).toBe(0)
+test('registerModule', () => {
+  expect(Object.keys(NightKay.modules).length).toBe(0)
 
-  const service = {}
-  NightKay.registerService('test', service)
+  const obj = {}
+  NightKay.registerModule('test', obj)
 
-  expect(Object.keys(NightKay.services).length).toBe(1)
-  expect(NightKay.getService('test')).toBe(service)
+  expect(Object.keys(NightKay.modules).length).toBe(1)
+  expect(NightKay.getModule('test')).toBe(obj)
 })
 
 test('AppLoader', () => {
@@ -50,7 +50,7 @@ test('AppLoader', () => {
     </Router>
   )
 
-  expect(wrapper.children().length).toBe(1)
+  expect(wrapper.html().indexOf('night-kay-app-test')).toBeGreaterThan(-1)
 })
 
 test('BundleLoader', () => {
@@ -61,9 +61,8 @@ test('BundleLoader', () => {
   }
 
   const wrapper = shallow(
-    <BundleLoader bundle={TestComponent} application={{ name: 'test' }} render={Component => <Component />} />
+    <BundleLoader bundle={TestComponent} />
   )
 
-  expect(wrapper.html().indexOf('night-kay-app-test')).toBeGreaterThan(-1)
   expect(wrapper.html().indexOf('class="test"')).toBeGreaterThan(-1)
 })
