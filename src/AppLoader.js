@@ -58,7 +58,7 @@ export default class AppLoader extends React.Component {
             const path = join([match.path, item.path])
 
             return (
-              <Route key={item.path} path={path} exact={!!item.exact} render={props => {
+              <Route key={path} path={path} exact={!!item.exact} render={props => {
                 return <BundleLoader {...props} bundle={item.component} />
               }} />
             )

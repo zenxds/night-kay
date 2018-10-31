@@ -12,7 +12,6 @@ class NightKay {
     this.applications = []
     this.applicationMap = {}
     this.modules = {}
-    this.permission = null
   }
 
   /**
@@ -71,10 +70,6 @@ class NightKay {
   getModule(name) {
     return this.modules[name]
   }
-
-  // registerPermission(permission={}) {
-  //   const { apps, paths, NoPermission } = permission
-  // }
 
   routes() {
     const routes = this.applications.map(application => {

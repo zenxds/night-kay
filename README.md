@@ -12,7 +12,7 @@ React微前端架构方案
 
 ### product
 
-处理页面公用部分逻辑，进行权限管理、子应用入口的注册
+处理页面公用部分逻辑，进行子应用的注册
 
 ### app
 
@@ -137,14 +137,28 @@ externals: {
 
 ## 子app构建
 
+### css命名空间
+
 子app会渲染在有`night-kay-app-${name}`类名的容器下
 
 配置postcss的namespace为所有css加上该类名的namespace
 
-配置webpack jsonp名称
+### jsonp函数名
+
+各个子app需要配置唯一的webpack jsonp名称
 
 ```
 output: {
   jsonpFunction: 'webpackJsonp' + Date.now()
 }
 ```
+
+## 权限判断
+
+权限交由各个子app自己判断，可以通过装饰一个permission的HOC，参见[TODO]()
+
+## 其他注意事项
+
+子app从概念上相当于一个独立的项目，即使和product放在同一项目里实现，也不要直接`import`自身文件夹以外的文件，方便日后迁移出去
+
+可以通过`mobx inject`，或者`nightKey.registerModule`来实现对其他模块的访问
