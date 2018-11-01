@@ -1,39 +1,39 @@
 import React from 'react'
-import { MemoryRouter as Router, Route } from 'react-router-dom'
+import { MemoryRouter as Router, Switch } from 'react-router-dom'
 
-import Enzyme, { shallow } from 'enzyme'
+import Enzyme, { shallow, mount } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 Enzyme.configure({ adapter: new Adapter() })
 
-import NightKay from '../src'
+import nightKay from '../src'
 import AppLoader from '../src/AppLoader'
 import BundleLoader from '../src/BundleLoader'
 
 test('registerApplication', () => {
-  expect(NightKay.applications.length).toBe(0)
+  expect(nightKay.applications.length).toBe(0)
 
   const app = {}
-  NightKay.registerApplication('test', app)
+  nightKay.registerApplication('test', app)
 
-  expect(NightKay.applications.length).toBe(1)
-  expect(NightKay.applications[0].name).toBe('test')
-  expect(NightKay.getApplication('test')).toBe(app)
+  expect(nightKay.applications.length).toBe(1)
+  expect(nightKay.applications[0].name).toBe('test')
+  expect(nightKay.getApplication('test')).toBe(app)
 })
 
 test('registerModule', () => {
-  expect(Object.keys(NightKay.modules).length).toBe(0)
+  expect(Object.keys(nightKay.modules).length).toBe(0)
 
   const obj = {}
-  NightKay.registerModule('test', obj)
+  nightKay.registerModule('test', obj)
 
-  expect(Object.keys(NightKay.modules).length).toBe(1)
-  expect(NightKay.getModule('test')).toBe(obj)
+  expect(Object.keys(nightKay.modules).length).toBe(1)
+  expect(nightKay.getModule('test')).toBe(obj)
 })
 
 test('AppLoader', () => {
-  class TestComponent extends React.Component {
+  class TestAppLoader extends React.Component {
     render() {
-      return <div className="test"></div>
+      return <div></div>
     }
   }
 
@@ -42,27 +42,27 @@ test('AppLoader', () => {
       <AppLoader
         match={{ url: '/test' }}
         application={{
-          name: 'test',
+          name: 'test-app-loader',
           path: '/test',
-          routes: [{ path: '/page', component: TestComponent }]
+          routes: [{ path: '/app-loader', component: TestAppLoader }]
         }}
       />
     </Router>
   )
 
-  expect(wrapper.html().indexOf('night-kay-app-test')).toBeGreaterThan(-1)
+  expect(wrapper.html().indexOf('night-kay-app-test-app-loader')).toBeGreaterThan(-1)
 })
 
 test('BundleLoader', () => {
-  class TestComponent extends React.Component {
+  class TestBundleLoader extends React.Component {
     render() {
-      return <div className="test"></div>
+      return <div className="test-bundle-loader"></div>
     }
   }
 
   const wrapper = shallow(
-    <BundleLoader bundle={TestComponent} />
+    <BundleLoader bundle={TestBundleLoader} />
   )
 
-  expect(wrapper.html().indexOf('class="test"')).toBeGreaterThan(-1)
+  expect(wrapper.html().indexOf('class="test-bundle-loader"')).toBeGreaterThan(-1)
 })
