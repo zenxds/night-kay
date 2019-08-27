@@ -4,9 +4,14 @@ import { Route } from 'react-router-dom'
 import BundleLoader from './BundleLoader'
 import { join, memoizePromise } from './util'
 import loadScript from './util/loadScript'
+import loadCss from './util/loadCss'
 
-const loadApp = memoizePromise(url => {
-  return loadScript(url)
+const loadApp = memoizePromise(entry => {
+  if (entry.css) {
+    loadCss(entry.css)
+  }
+
+  return loadScript(entry.script)
 })
 
 /**
@@ -27,10 +32,11 @@ export default class AppLoader extends React.Component {
   }
 
   load() {
-    const { application } = this.props
-    const { entry } = application
+    let { application } = this.props
+    let { entry } = application
 
-    if (!entry) {
+    if (!entry || !entry.script) {
+      console.warn('application entry not found')
       return
     }
 

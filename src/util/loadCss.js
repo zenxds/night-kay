@@ -1,22 +1,16 @@
 const head = document.head || document.getElementsByTagName("head")[0]
 
-export default function(url, options={}) {
-  if (options.hour) {
-    url += url.indexOf('?') > 0 ? '&' : '?'
-    url += `t=${Math.floor(new Date() / 3600000)}`
-  }
-
+export default function loadCss(url) {
   return new Promise((resolve, reject) => {
-    let node = document.createElement("script")
+    let node = document.createElement('link')
 
     node.charset = 'utf-8'
-    node.async = true
-    node.crossOrigin = 'anonymous'
+    node.rel = 'stylesheet'
 
     if ('onload' in node) {
       node.onload = onload
     } else {
-      node.onreadystatechange = function() {
+      node.onreadystatechange = function () {
         if (/loaded|complete/.test(node.readyState)) {
           onload()
         }
@@ -28,14 +22,13 @@ export default function(url, options={}) {
     }
 
     function onload() {
-      node.onreadystatechange = node.onload = null
-      head.removeChild(node)
+      node.onload = node.onreadystatechange = null
       node = null
 
       resolve()
     }
 
-    node.src = url
+    node.href = url
     head.appendChild(node)
   })
 }

@@ -2,7 +2,6 @@ const fs = require('fs')
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const dxMock = require('dx-mock')
 
 const rules = require('./webpack.rules')
 module.exports = {
@@ -27,13 +26,7 @@ module.exports = {
       {
         test: /\.jsx?$/,
         use: ['babel-loader', 'eslint-loader'],
-        exclude: p => {
-          if (/dx-lib/.test(p)) {
-            return false
-          }
-
-          return /node_modules/.test(p)
-        }
+        exclude: /node_modules/
       },
       {
         test: /\.css$/,
@@ -95,9 +88,6 @@ module.exports = {
     ],
     hot: true,
     host: '0.0.0.0',
-    disableHostCheck: true,
-    before(app){
-      dxMock(app, { root: path.join(__dirname, '../api')})
-    }
+    disableHostCheck: true
   }
 }

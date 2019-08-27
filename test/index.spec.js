@@ -30,6 +30,16 @@ test('registerModule', () => {
   expect(nightKay.getModule('test')).toBe(obj)
 })
 
+test('entry', () => {
+  nightKay.registerApplication('user', {
+    path: '/user',
+    entry: 'user.js'
+  })
+
+  const app = nightKay.getApplication('user')
+  expect(app.entry.script).toEqual('user.js')
+})
+
 test('AppLoader', () => {
   class TestAppLoader extends React.Component {
     render() {

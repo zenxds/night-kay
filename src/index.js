@@ -23,13 +23,20 @@ class NightKay {
    * @param {string}  application.entry
    * @param {array}   application.routes
    */
-  registerApplication(name, application) {
+  registerApplication(name, application={}) {
     if (this.applicationMap[name]) {
       console.warn(`application ${name} has been registered`)
       return
     }
 
     application.name = name
+
+    // entry为string时是script
+    if (typeof application.entry === 'string') {
+      application.entry = {
+        script: application.entry
+      }
+    }
 
     this.applicationMap[name] = application
     this.applications.push(application)

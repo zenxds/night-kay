@@ -45,13 +45,7 @@ module.exports = {
     rules: rules.concat([{
         test: /\.jsx?$/,
         use: ['babel-loader'],
-        exclude: p => {
-          if (/dx-lib/.test(p)) {
-            return false
-          }
-
-          return /node_modules/.test(p)
-        }
+        exclude: /node_modules/
       },
       {
         test: /\.css$/,
@@ -108,37 +102,6 @@ module.exports = {
           limit: 10 * 1024,
           name: 'image/[hash].[ext]'
         },
-      },
-      {
-        test: /\.svg$/,
-        loader: 'svg-url-loader',
-        options: {
-          // Inline files smaller than 10 kB (10240 bytes)
-          limit: 10 * 1024,
-          name: 'image/[hash].[ext]',
-          // Remove the quotes from the url
-          // (they’re unnecessary in most cases)
-          noquotes: true
-        }
-      },
-      {
-        test: /\.(jpe?g|png|gif|svg)$/,
-        loader: 'image-webpack-loader',
-        options: {
-          mozjpeg: {
-            quality: 80
-          },
-          // optipng.enabled: false will disable optipng
-          optipng: {
-            enabled: false
-          },
-          pngquant: {
-            quality: '65-90',
-            speed: 4
-          }
-        },
-        // This will apply the loader before the other ones
-        enforce: 'pre'
       }
     ])
   },
