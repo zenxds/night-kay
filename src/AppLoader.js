@@ -12,7 +12,7 @@ const loadApp = memoizePromise(entry => {
   }
 
   return loadScript(entry.script)
-})
+}, entry => entry.script)
 
 /**
  * @class AppLoader
