@@ -17,7 +17,7 @@ export default class BundleLoader extends React.Component {
   }
 
   load() {
-    const { bundle } = this.props
+    const { nightKayBundle: bundle } = this.props
 
     if (bundle.prototype instanceof React.Component) {
       this.setState({
@@ -35,12 +35,11 @@ export default class BundleLoader extends React.Component {
 
   render() {
     const Component = this.state.mod
-    const { match, location, history } = this.props
 
     if (!Component) {
       return null
     }
 
-    return <Component match={match} location={location} history={history} />
+    return <Component {...this.props} />
   }
 }

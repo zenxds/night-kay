@@ -161,4 +161,4 @@ output: {
 
 子app从概念上相当于一个独立的项目，即使和product放在同一项目里实现，也不要直接`import`自身文件夹以外的文件，方便日后迁移出去
 
-可以通过`mobx inject`，或者`nightKey.registerModule`来实现对其他模块的访问
+可以通过`mobx inject`，或者`nightKey.define`来实现对其他模块的访问

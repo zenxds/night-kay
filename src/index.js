@@ -65,16 +65,16 @@ class NightKay {
     application.routes = routes
   }
 
-  registerModule(name, module) {
+  define(name, module) {
     if (this.modules[name]) {
-      console.warn(`module ${name} has been registered`)
+      console.warn(`module ${name} has been defined`)
       return
     }
 
     this.modules[name] = module
   }
 
-  getModule(name) {
+  require(name) {
     return this.modules[name]
   }
 
@@ -86,7 +86,7 @@ class NightKay {
           path={application.path}
           exact={!!application.exact}
           render={props => {
-            return <AppLoader {...props} application={application} />
+            return <AppLoader {...props} nightKayApp={application} />
           }}
         />
       )

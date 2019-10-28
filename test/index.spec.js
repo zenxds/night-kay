@@ -20,14 +20,14 @@ test('registerApplication', () => {
   expect(nightKay.getApplication('test')).toBe(app)
 })
 
-test('registerModule', () => {
+test('define', () => {
   expect(Object.keys(nightKay.modules).length).toBe(0)
 
   const obj = {}
-  nightKay.registerModule('test', obj)
+  nightKay.define('test', obj)
 
   expect(Object.keys(nightKay.modules).length).toBe(1)
-  expect(nightKay.getModule('test')).toBe(obj)
+  expect(nightKay.require('test')).toBe(obj)
 })
 
 test('entry', () => {
@@ -51,7 +51,7 @@ test('AppLoader', () => {
     <Router>
       <AppLoader
         match={{ url: '/test' }}
-        application={{
+        nightKayApp={{
           name: 'test-app-loader',
           path: '/test',
           routes: [{ path: '/app-loader', component: TestAppLoader }]
@@ -71,7 +71,7 @@ test('BundleLoader', () => {
   }
 
   const wrapper = shallow(
-    <BundleLoader bundle={TestBundleLoader} />
+    <BundleLoader nightKayBundle={TestBundleLoader} />
   )
 
   expect(wrapper.html().indexOf('class="test-bundle-loader"')).toBeGreaterThan(-1)

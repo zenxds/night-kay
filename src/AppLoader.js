@@ -23,7 +23,7 @@ export default class AppLoader extends React.Component {
     super(props, context)
 
     this.state = {
-      routes: props.application.routes || []
+      routes: props.nightKayApp.routes || []
     }
   }
 
@@ -32,7 +32,7 @@ export default class AppLoader extends React.Component {
   }
 
   load() {
-    let { application } = this.props
+    let { nightKayApp: application } = this.props
     let { entry } = application
 
     if (!entry || !entry.script) {
@@ -50,7 +50,7 @@ export default class AppLoader extends React.Component {
 
   render() {
     const { routes } = this.state
-    const { match, application } = this.props
+    const { match, nightKayApp: application } = this.props
 
     if (!routes.length) {
       return null
@@ -65,7 +65,7 @@ export default class AppLoader extends React.Component {
 
             return (
               <Route key={path} path={path} exact={!!item.exact} render={props => {
-                return <BundleLoader {...props} bundle={item.component} />
+                return <BundleLoader {...props} nightKayBundle={item.component} />
               }} />
             )
           })
