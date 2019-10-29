@@ -23,12 +23,42 @@ module.exports = {
     "react"
   ],
   "rules": {
-    "no-unused-vars": 0,
-    "no-console": 0,
-    "no-empty": 0,
-    "semi": 0,
-    "eol-last": 0,
-    "react/react-in-jsx-scope": 0,
-    "react/prop-types": 0
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    "quotes": [
+      "warn",
+      "single"
+    ],
+    "no-unused-vars": "off",
+    "no-console": [
+      "error",
+      {
+        "allow": [
+          "log",
+          "warn",
+          "error"
+        ]
+      }
+    ],
+    "no-empty": [
+      "error",
+      {
+        "allowEmptyCatch": true
+      }
+    ],
+    "semi": [
+      "warn",
+      "never"
+    ],
+    "eol-last": "off",
+    "comma-dangle": [
+      "error",
+      "never"
+    ],
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off",
+    "react/display-name": "warn"
   }
 }

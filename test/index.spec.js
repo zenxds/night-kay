@@ -51,7 +51,7 @@ test('AppLoader', () => {
     <Router>
       <AppLoader
         match={{ url: '/test' }}
-        nightKayApp={{
+        application={{
           name: 'test-app-loader',
           path: '/test',
           routes: [{ path: '/app-loader', component: TestAppLoader }]
@@ -71,7 +71,7 @@ test('BundleLoader', () => {
   }
 
   const wrapper = shallow(
-    <BundleLoader nightKayBundle={TestBundleLoader} />
+    <BundleLoader bundle={TestBundleLoader} />
   )
 
   expect(wrapper.html().indexOf('class="test-bundle-loader"')).toBeGreaterThan(-1)

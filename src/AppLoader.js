@@ -19,11 +19,12 @@ const loadApp = memoizePromise(entry => {
  * 加载App入口文件
  */
 export default class AppLoader extends React.Component {
+
   constructor(props, context) {
     super(props, context)
 
     this.state = {
-      routes: props.nightKayApp.routes || []
+      routes: props.application.routes || []
     }
   }
 
@@ -32,7 +33,7 @@ export default class AppLoader extends React.Component {
   }
 
   load() {
-    let { nightKayApp: application } = this.props
+    let { application } = this.props
     let { entry } = application
 
     if (!entry || !entry.script) {
@@ -50,7 +51,7 @@ export default class AppLoader extends React.Component {
 
   render() {
     const { routes } = this.state
-    const { match, nightKayApp: application } = this.props
+    const { match, application } = this.props
 
     if (!routes.length) {
       return null
@@ -65,7 +66,7 @@ export default class AppLoader extends React.Component {
 
             return (
               <Route key={path} path={path} exact={!!item.exact} render={props => {
-                return <BundleLoader {...props} nightKayBundle={item.component} />
+                return <BundleLoader {...props} bundle={item.component} />
               }} />
             )
           })

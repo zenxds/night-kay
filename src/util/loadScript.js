@@ -1,4 +1,4 @@
-const head = document.head || document.getElementsByTagName("head")[0]
+const head = document.head || document.getElementsByTagName('head')[0]
 
 export default function(url, options={}) {
   if (options.hour) {
@@ -7,7 +7,7 @@ export default function(url, options={}) {
   }
 
   return new Promise((resolve, reject) => {
-    let node = document.createElement("script")
+    let node = document.createElement('script')
 
     node.charset = 'utf-8'
     node.async = true

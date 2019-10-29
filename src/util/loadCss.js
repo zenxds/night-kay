@@ -1,4 +1,4 @@
-const head = document.head || document.getElementsByTagName("head")[0]
+const head = document.head || document.getElementsByTagName('head')[0]
 
 export default function loadCss(url) {
   return new Promise((resolve, reject) => {

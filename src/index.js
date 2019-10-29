@@ -86,7 +86,7 @@ class NightKay {
           path={application.path}
           exact={!!application.exact}
           render={props => {
-            return <AppLoader {...props} nightKayApp={application} />
+            return <AppLoader {...props} application={application} />
           }}
         />
       )
