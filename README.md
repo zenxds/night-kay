@@ -20,6 +20,8 @@ React微前端架构方案
 
 ## 使用
 
+### 应用注册
+
 product与子app在不同项目中时
 
 ```
@@ -67,6 +69,8 @@ nightKay.registerApplication('user', {
 })
 ```
 
+### 路由配置
+
 ```
 import {
   HashRouter as Router,
@@ -95,27 +99,17 @@ product负责把公共依赖包打包成vendor
 
 ```
 import 'babel-polyfill'
-import React from 'react'
-import ReactDOM from 'react-dom'
-import * as ReactRouterDOM from 'react-router-dom'
-import * as MobX from 'mobx'
-import * as MobXReact from 'mobx-react'
-import * as antd from 'antd'
-import G2 from '@antv/g2'
-import DataSet from '@antv/data-set'
-import axios from 'axios'
-import nightKay from 'night-kay'
 
-window.React = React
-window.ReactDOM = ReactDOM
-window.ReactRouterDOM = ReactRouterDOM
-window.MobX = MobX
-window.MobXReact = MobXReact
-window.antd = antd
-window.G2 = G2
-window.DataSet = DataSet
-window.axios = axios
-window.nightKay = nightKay
+window.React = require('react')
+window.ReactDOM = require('react-dom')
+window.ReactRouterDOM = require('react-router-dom')
+window.MobX = require('mobx')
+window.MobXReact = require('mobx-react')
+window.antd = require('antd')
+window.G2 = require('@antv/g2')
+window.DataSet = require('@antv/data-set')
+window.axios = require('axios')
+window.nightKay = require('night-kay')
 ```
 
 product和各app在webpack里配置
@@ -155,9 +149,11 @@ output: {
 
 ## 权限判断
 
-权限交由各个子app自己判断，可以通过装饰一个permission的HOC，参见[TODO]()
+<!-- 权限交由各个子app自己判断，可以通过装饰一个permission的HOC -->
 
 ## 其他注意事项
+
+注意不能使用`babel-plugin-import`，否则引用到的antd组件不是同一份，会导致`ConfigProvider`配置不生效
 
 子app从概念上相当于一个独立的项目，即使和product放在同一项目里实现，也不要直接`import`自身文件夹以外的文件，方便日后迁移出去
 
