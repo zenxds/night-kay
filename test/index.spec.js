@@ -76,3 +76,7 @@ test('BundleLoader', () => {
 
   expect(wrapper.html().indexOf('class="test-bundle-loader"')).toBeGreaterThan(-1)
 })
+
+test('utils', () => {
+  expect(nightKay.utils.getPublicPath).toBeTruthy()
+})

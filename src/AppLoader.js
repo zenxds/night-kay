@@ -2,16 +2,19 @@ import React from 'react'
 import { Route } from 'react-router-dom'
 
 import BundleLoader from './BundleLoader'
-import { join, memoizePromise } from './util'
-import loadScript from './util/loadScript'
-import loadCss from './util/loadCss'
+import { memoizePromise } from './utils'
+import * as path from './utils/path'
+import loadScript from './utils/loadScript'
+import loadCss from './utils/loadCss'
 
 const loadApp = memoizePromise(entry => {
   if (entry.css) {
     loadCss(entry.css)
   }
 
-  return loadScript(entry.script)
+  return loadScript(entry.script, {
+    hour: true
+  })
 }, entry => entry.script)
 
 /**
@@ -62,10 +65,10 @@ export default class AppLoader extends React.Component {
       <div className={`night-kay-app night-kay-app-${application.name}`}>
         {
           routes.map(item => {
-            const path = join([match.path, item.path])
+            const p = path.join([match.path, item.path])
 
             return (
-              <Route key={path} path={path} exact={!!item.exact} render={props => {
+              <Route key={p} path={p} exact={!!item.exact} render={props => {
                 return <BundleLoader {...props} bundle={item.component} />
               }} />
             )

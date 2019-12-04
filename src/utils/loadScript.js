@@ -3,7 +3,7 @@ const head = document.head || document.getElementsByTagName('head')[0]
 export default function(url, options={}) {
   if (options.hour) {
     url += url.indexOf('?') > 0 ? '&' : '?'
-    url += `t=${Math.floor(new Date() / 3600000)}`
+    url += `_t=${Math.floor(new Date() / 3600000)}`
   }
 
   return new Promise((resolve, reject) => {

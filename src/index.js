@@ -2,6 +2,7 @@ import React from 'react'
 import { Route } from 'react-router-dom'
 
 import AppLoader from './AppLoader'
+import { getPublicPath } from './utils'
 
 /**
  * @class NightKay
@@ -12,6 +13,9 @@ class NightKay {
     this.applications = []
     this.applicationMap = {}
     this.modules = {}
+    this.utils = {
+      getPublicPath
+    }
   }
 
   /**
