@@ -1,8 +1,9 @@
 {
   "name": "night-kay",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "night-kay",
   "main": "build/index.js",
+  "types": "./index.d.ts",
   "scripts": {
     "start": "BABEL_ENV=development webpack-dev-server -w --open --env=development",
     "build": "BABEL_ENV=production webpack --progress --env=production",
@@ -60,7 +61,9 @@
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.7"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@types/react-router-dom": "^5.1.4"
+  },
   "peerDependencies": {
     "react": "^16.6.0",
     "react-router-dom": "^4.3.1"
