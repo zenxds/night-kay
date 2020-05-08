@@ -1,6 +1,6 @@
 {
   "name": "night-kay",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "night-kay",
   "main": "build/index.js",
   "types": "./index.d.ts",

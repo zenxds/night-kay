@@ -13,11 +13,16 @@ test('registerApplication', () => {
   expect(nightKay.applications.length).toBe(0)
 
   const app = {}
-  nightKay.registerApplication('test', app)
+  const config = {
+    showLicense: true
+  }
+  nightKay.registerApplication('test', app, config)
 
   expect(nightKay.applications.length).toBe(1)
   expect(nightKay.applications[0].name).toBe('test')
   expect(nightKay.getApplication('test')).toBe(app)
+  expect(nightKay.getApplicationConfig('test')).toBe(config)
+  expect(nightKay.getApplicationConfig('test').showLicense).toBeTruthy()
 })
 
 test('define', () => {
