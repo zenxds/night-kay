@@ -1,11 +1,15 @@
 const head = document.head || document.getElementsByTagName('head')[0]
 
-export default function loadCss(url) {
+export default function loadCss(url, options = {}) {
   return new Promise((resolve, reject) => {
     let node = document.createElement('link')
 
     node.charset = 'utf-8'
     node.rel = 'stylesheet'
+
+    if (options.name) {
+      node.id = 'night-kay-style-' + options.name
+    }
 
     if ('onload' in node) {
       node.onload = onload

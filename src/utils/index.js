@@ -27,8 +27,8 @@ export const memoizePromise = (fn, hasher) => {
   }
 }
 
-export function getPublicPath() {
-  const currentScript = getCurrentScript()
+export function getPublicPath(name) {
+  const currentScript = getCurrentScript(name)
 
   if (!currentScript || !currentScript.src) {
     return ''
@@ -37,7 +37,7 @@ export function getPublicPath() {
   return dirname(currentScript.src) + '/'
 }
 
-function getCurrentScript() {
+function getCurrentScript(name) {
   if (document.currentScript) {
     return document.currentScript
   }
@@ -50,14 +50,23 @@ function getCurrentScript() {
 
   // 开放id获取当前js
   const scripts = document.getElementsByTagName('script')
+  let scriptWithSrc = null
 
   for (let i = scripts.length - 1; i >= 0; i--) {
     const script = scripts[i]
     if (script.readyState === 'interactive') {
       return script
     }
+
+    if (name && (script.id === name || script.id === 'night-kay-script-' + name)) {
+      return script
+    }
+
+    if (!scriptWithSrc && script.src) {
+      scriptWithSrc = script
+    }
   }
 
   // 兜底的情况，获取最后一个 script 节点
-  return scripts[scripts.length - 1]
+  return scriptWithSrc || scripts[scripts.length - 1]
 }

@@ -13,6 +13,10 @@ export default function(url, options={}) {
     node.async = true
     node.crossOrigin = 'anonymous'
 
+    if (options.name) {
+      node.id = 'night-kay-script-' + options.name
+    }
+
     if ('onload' in node) {
       node.onload = onload
     } else {
@@ -29,7 +33,7 @@ export default function(url, options={}) {
 
     function onload() {
       node.onreadystatechange = node.onload = null
-      head.removeChild(node)
+      // head.removeChild(node)
       node = null
 
       resolve()

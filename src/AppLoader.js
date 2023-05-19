@@ -7,15 +7,18 @@ import * as path from './utils/path'
 import loadScript from './utils/loadScript'
 import loadCss from './utils/loadCss'
 
-const loadApp = memoizePromise(entry => {
+const loadApp = memoizePromise(({ entry, name }) => {
   if (entry.css) {
-    loadCss(entry.css)
+    loadCss(entry.css, {
+      name
+    })
   }
 
   return loadScript(entry.script, {
+    name,
     hour: true
   })
-}, entry => entry.script)
+}, app => app.entry.script)
 
 /**
  * @class AppLoader
@@ -45,7 +48,7 @@ export default class AppLoader extends React.Component {
     }
 
     // 加载入口JS，在该JS里执行App路由注册逻辑
-    loadApp(entry).then(() => {
+    loadApp(application).then(() => {
       this.setState({
         routes: application.routes || []
       })
